@@ -27,14 +27,14 @@ def score_for(frames)
         next_frame_idx = i + 1
         next_rolls = frames[next_frame_idx]
         # ストライク連続じゃない
-        bonus = case next_rolls.size
+        bonus = case next_rolls.compact.size
+                # ストライクが連続
+                when 1
+                  next_rolls.first + frames[i + 2].first
                 when 2
                   next_rolls.sum
                 when 3
                   next_rolls.take(2).sum
-                # ストライクが連続
-                else
-                  next_rolls.first + frames[i + 2].first
                 end
         score += (STRIKE + bonus)
       # スペア

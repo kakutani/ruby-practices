@@ -40,17 +40,27 @@ def handle_spare(frames, idx)
   (10 + bonus)
 end
 
+def final_frame?(idx)
+  idx == 9
+end
+
+def strike?(rolls)
+  rolls.first == STRIKE && rolls.last.nil?
+end
+
+def spare?(rolls)
+  rolls.first != STRIKE && rolls.sum == 10
+end
+
 def score_for(frames)
   frames.each_with_index.sum do |rolls, i|
-    next rolls.sum if i == 9
+    next rolls.sum if final_frame?(i)
 
-    if rolls.first == STRIKE && rolls.last.nil?
+    if strike?(rolls)
       handle_strike(frames, i)
-    # スペア
-    elsif rolls.first != STRIKE && rolls.sum == 10
+    elsif spare?(rolls)
       handle_spare(frames, i)
-    # 通常の2投
-    else
+    else # 1〜9フレームまでの通常投球
       rolls.sum
     end
   end

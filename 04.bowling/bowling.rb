@@ -17,7 +17,7 @@ def parse_marks(marks)
   frames << pins # 最後に残ったのが10フレーム目
 end
 
-# ボーナス対象フレームがストライクだった場合、さらにその次の投球がボーナス対象になる
+# ボーナス対象フレームがストライクだった場合、さらにその次のフレームの1投目がボーナス対象になる
 def bonus_rolls(count, frames, idx)
   frames[idx + 1].take(count).sum { |roll| roll.nil? ? frames[idx + 2].first : roll }
 end
@@ -45,7 +45,7 @@ end
 def score_nonfinal(rolls, frames, idx)
   if strike?(rolls) then strike_with_bonus(frames, idx)
   elsif spare?(rolls) then spare_with_bonus(frames, idx)
-  else rolls.sum # 1〜9フレームまでの通常投球
+  else rolls.sum # 通常の投球
   end
 end
 

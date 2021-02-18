@@ -25,37 +25,13 @@ class BowlingTest < Minitest::Test
     assert_equal 107, calculate_score(marks)
   end
 
-  def test_parse_marks4
-    input = '6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,0,0'
-    expect = [
-      [6, 3],
-      [9, 0],
-      [0, 3],
-      [8, 2],
-      [7, 3],
-      [10, nil],
-      [9, 1],
-      [8, 0],
-      [10, nil],
-      [10, 0, 0]
-    ]
-    assert_equal expect, parse_marks(input)
+  def test_score4
+    marks = '6,3,9,0,0,3,8,2,7,3,X,9,1,8,0,X,X,0,0'
+    assert_equal 134, calculate_score(marks)
   end
 
-  def test_parse_marks5
-    input = 'X,X,X,X,X,X,X,X,X,X,X,X'
-    expect = [
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, nil],
-      [10, 10, 10]
-    ]
-    assert_equal expect, parse_marks(input)
+  def test_perfect_game
+    marks = 'X,X,X,X,X,X,X,X,X,X,X,X'
+    assert_equal 300, calculate_score(marks)
   end
 end

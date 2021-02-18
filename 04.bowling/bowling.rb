@@ -23,7 +23,6 @@ def score_for(frames)
     if (0..9).cover?(i)
       # ストライク
       if rolls.first == STRIKE && rolls.last.nil?
-        bonus = 0
         next_frame_idx = i + 1
         next_rolls = frames[next_frame_idx]
         # ストライク連続じゃない
@@ -39,7 +38,6 @@ def score_for(frames)
         score += (STRIKE + bonus)
       # スペア
       elsif rolls.first != STRIKE && rolls.sum == 10
-        bonus = 0
         next_frame_idx = i + 1
         next_rolls = frames[next_frame_idx]
         bonus = next_rolls.first

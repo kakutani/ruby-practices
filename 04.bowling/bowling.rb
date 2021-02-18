@@ -18,7 +18,9 @@ def parse_marks(marks)
 end
 
 def score_for(frames)
-  frames
+  frames.each_with_index.sum do |rolls, _i|
+    rolls.compact.sum
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME

@@ -16,3 +16,12 @@ def parse_marks(marks)
   end
   frames << pins # 最後に残ったのが10フレーム目
 end
+
+def score_for(frames)
+  frames
+end
+
+if __FILE__ == $PROGRAM_NAME
+  frames = parse_marks(ARGV[0])
+  puts score_for(frames)
+end

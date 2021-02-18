@@ -18,9 +18,41 @@ def parse_marks(marks)
 end
 
 def score_for(frames)
-  frames.each_with_index.sum do |rolls, _i|
-    rolls.compact.sum
+  score = 0
+  frames.each_with_index do |rolls, i|
+    if (0..9).cover?(i)
+      # ストライク
+      if rolls.first == STRIKE && rolls.last.nil?
+        bonus = 0
+        next_frame_idx = i + 1
+        next_rolls = frames[next_frame_idx]
+        # ストライク連続じゃない
+        bonus = case next_rolls.size
+                when 2
+                  next_rolls.sum
+                when 3
+                  next_rolls.take(2).sum
+                # ストライクが連続
+                else
+                  next_rolls.first + frames[i + 2].first
+                end
+        score += (STRIKE + bonus)
+      # スペア
+      elsif rolls.first != STRIKE && rolls.sum == 10
+        bonus = 0
+        next_frame_idx = i + 1
+        next_rolls = frames[next_frame_idx]
+        bonus = next_rolls.first
+        score += (10 + bonus)
+      # 通常の2投
+      else
+        score += rolls.sum
+      end
+    else # 最終フレーム
+      score += rolls.sum
+    end
   end
+  score
 end
 
 if __FILE__ == $PROGRAM_NAME

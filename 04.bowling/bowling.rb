@@ -17,10 +17,10 @@ def parse_marks(marks)
   frames << pins # 最後に残ったのが10フレーム目
 end
 
-def strike_with_bonus(frames, idx)
+
+def strike_bonus(frames, idx)
   next_frame_idx = idx + 1
   next_rolls = frames[next_frame_idx]
-  # ストライク連続じゃない
   bonus = case next_rolls.compact.size
           # ストライクが連続
           when 1
@@ -30,14 +30,13 @@ def strike_with_bonus(frames, idx)
           when 3
             next_rolls.take(2).sum
           end
-  STRIKE + bonus
+  bonus
 end
 
-def spare_with_bonus(frames, idx)
+def spare_bonus(frames, idx)
   next_frame_idx = idx + 1
   next_rolls = frames[next_frame_idx]
-  bonus = next_rolls.first
-  10 + bonus
+  next_rolls.first
 end
 
 def final_frame?(idx)
@@ -53,8 +52,8 @@ def spare?(rolls)
 end
 
 def score_nonfinal(rolls, frames, idx)
-  if strike?(rolls) then strike_with_bonus(frames, idx)
-  elsif spare?(rolls) then spare_with_bonus(frames, idx)
+  if strike?(rolls) then STRIKE + strike_bonus(frames, idx)
+  elsif spare?(rolls) then rolls.sum + spare_bonus(frames, idx)
   else rolls.sum # 1〜9フレームまでの通常投球
   end
 end

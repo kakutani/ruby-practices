@@ -18,14 +18,11 @@ def parse_marks(marks)
 end
 
 def bonus_rolls(count, frames, idx)
-  bonus_rolls = []
-  next_rolls = frames[idx + 1]
-  if count == 2 && next_rolls.any?(&:nil?)
-    bonus_rolls = [next_rolls.first, frames[idx + 2].first]
-  else
-    bonus_rolls = next_rolls.take(count)
+  bonus_rolls = frames[idx + 1].take(count)
+  if bonus_rolls.any?(&:nil?)
+    bonus_rolls << frames[idx + 2].first
   end
-  bonus_rolls
+  bonus_rolls.compact
 end
 
 def strike_with_bonus(frames, idx)

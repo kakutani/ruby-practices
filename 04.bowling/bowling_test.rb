@@ -5,8 +5,8 @@ require 'minitest/pride'
 require_relative 'bowling'
 
 class BowlingTest < Minitest::Test
-  def calculate_score(input)
-    frames = parse_marks(input)
+  def calculate_score(marks)
+    frames = parse_marks(marks)
     score_for(frames)
   end
 

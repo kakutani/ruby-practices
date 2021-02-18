@@ -19,17 +19,15 @@ end
 
 # ボーナス対象フレームがストライクだった場合、さらにその次の投球がボーナス対象になる
 def bonus_rolls(count, frames, idx)
-  frames[idx + 1].take(count).map do |roll|
-    roll.nil? ? frames[idx + 2].first : roll
-  end
+  frames[idx + 1].take(count).sum { |roll| roll.nil? ? frames[idx + 2].first : roll }
 end
 
 def strike_with_bonus(frames, idx)
-  STRIKE + bonus_rolls(2, frames, idx).sum
+  STRIKE + bonus_rolls(2, frames, idx)
 end
 
 def spare_with_bonus(frames, idx)
-  10 + bonus_rolls(1, frames, idx).sum
+  10 + bonus_rolls(1, frames, idx)
 end
 
 def final_frame?(idx)

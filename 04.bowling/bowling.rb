@@ -17,12 +17,11 @@ def parse_marks(marks)
   frames << pins # 最後に残ったのが10フレーム目
 end
 
+# ボーナス対象フレームがストライクだった場合、さらにその次の投球がボーナス対象になる
 def bonus_rolls(count, frames, idx)
-  bonus_rolls = frames[idx + 1].take(count)
-  if bonus_rolls.any?(&:nil?)
-    bonus_rolls << frames[idx + 2].first
+  frames[idx + 1].take(count).map do |roll|
+    roll.nil? ? frames[idx + 2].first : roll
   end
-  bonus_rolls.compact
 end
 
 def strike_with_bonus(frames, idx)

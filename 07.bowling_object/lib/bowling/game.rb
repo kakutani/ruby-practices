@@ -2,26 +2,20 @@
 
 module Bowling
   class Game
-    class << self
-      def frame_size = 10
+    def initialize(marks) = @frame_builder = Frame.builder(marks)
 
-      def final_frame?(index) = (index == final_frame_idx)
-
-      private
-
-      def final_frame_idx = 9
-    end
-
-    def initialize(marks)
-      @frames = Parse.call(marks)
-    end
-
-    def score
-      frames.sum(&:score)
-    end
+    def score = frames.sum(&:score)
 
     private
 
-    attr_reader :frames
+    def frames = @frames ||= create_frames
+
+    def create_frames = (0..final_frame).map { |i| build_frame(final?(i)) }
+
+    def build_frame(final) = @frame_builder.call(final)
+
+    def final?(index) = (index == final_frame)
+
+    def final_frame = 9
   end
 end

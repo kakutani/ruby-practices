@@ -16,9 +16,7 @@ module Bowling
 
     def create_frames = Array.new(frame_size){ build_frame(final?(_1)) }
 
-    def build_frame(final)
-      @frame_builder.call(final)
-    end
+    def build_frame(final) = @frame_builder.call(final)
 
     def final?(index) = (index == final_frame)
 

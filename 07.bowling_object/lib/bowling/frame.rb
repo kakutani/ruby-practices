@@ -9,8 +9,12 @@ module Bowling
       def builder(marks) = Builder.new(marks)
     end
 
-    def initialize(rolls:, bonus:) = (@rolls, @bonus = rolls, bonus) # rubocop:disable Style/ParallelAssignment
+    def initialize(rolls:, bonus:)
+      @rolls, @bonus = rolls, bonus # rubocop:disable Style/ParallelAssignment
+    end
 
-    def score = (@rolls + @bonus).sum
+    def score
+      (@rolls + @bonus).sum
+    end
   end
 end

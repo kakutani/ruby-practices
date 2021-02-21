@@ -14,9 +14,7 @@ module Bowling
 
     def frames = (@frames ||= create_frames)
 
-    def create_frames
-      (0..final_frame).map { |i| build_frame(final?(i)) }
-    end
+    def create_frames = Array.new(frame_size){ build_frame(final?(_1)) }
 
     def build_frame(final)
       @frame_builder.call(final)
@@ -25,5 +23,7 @@ module Bowling
     def final?(index) = (index == final_frame)
 
     def final_frame = 9
+
+    def frame_size = 10
   end
 end

@@ -13,7 +13,7 @@ module Bowling
         private
 
         def bonus?(sym, pins)
-          bonus(sym).satisfied_by?(pins)
+          bonus(sym).satisfied?(pins)
         end
 
         def bonus(sym) = const_get(sym.capitalize)
@@ -23,7 +23,7 @@ module Bowling
         class << self
           def point = 10
 
-          def satisfied_by?(pins)
+          def satisfied?(pins)
             pins.first == Strike.point
           end
 
@@ -37,7 +37,7 @@ module Bowling
         class << self
           def point = 10
 
-          def satisfied_by?(pins)
+          def satisfied?(pins)
             !Bonus.strike?(pins) && spare_rolls?(pins)
           end
 

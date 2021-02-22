@@ -35,19 +35,13 @@ module Bowling
 
       module Spare
         class << self
-          def point = 10
-
           def satisfied?(pins)
-            !Bonus.strike?(pins) && spare_rolls?(pins)
+            !Bonus.strike?(pins) && (pins.take(2).sum == 10)
           end
 
           def frame(pins)
             { rolls: pins.shift(2), bonus: pins.take(1) }
           end
-
-          private
-
-          def spare_rolls?(pins) = (pins.take(2).sum == Spare.point)
         end
       end
 
